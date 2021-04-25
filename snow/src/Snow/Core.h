@@ -5,7 +5,6 @@
 #pragma once
 
 #include <pch.h>
-#include <Snow/Log.h>
 
 #ifdef SNOW_ENABLE_ASSERTS
 #define SNOW_ASSERT(x, ...) { if (!(x)) { SNOW_ERROR("Assertion failed: {0}", ## __VA_ARGS__); raise(SIGTRAP); } }

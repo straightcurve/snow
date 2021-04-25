@@ -2,7 +2,7 @@
 // Created by tony on 24.04.2021.
 //
 
-#include <Snow/Log.h>
+#include <pch.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 
 namespace Snow {
