@@ -1,4 +1,3 @@
-#include <cstdio>
 #include "Application.h"
 
 namespace Snow {

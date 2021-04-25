@@ -7,11 +7,14 @@ set(CMAKE_CXX_STANDARD 17)
 # Source files
 set(SRC_DIR "src")
 set(LIB_DIR "external")
-set(SOURCES "${SRC_DIR}/Application.cpp" src/Snow.h src/EntryPoint.h src/Log.cpp src/Log.h)
+set(SOURCES "${SRC_DIR}/Application.cpp" src/Snow.h src/EntryPoint.h src/Log.cpp src/Log.h src/pch.h)
 
 # Library definition and properties
 add_library(${PROJECT_NAME} SHARED ${SOURCES})
 target_include_directories(${PROJECT_NAME} PUBLIC "${SRC_DIR}")
+
+# PCH
+target_precompile_headers(snow PRIVATE "${SRC_DIR}/pch.h")
 
 # spdlog
 set(SPDLOG_DIR "${LIB_DIR}/spdlog")

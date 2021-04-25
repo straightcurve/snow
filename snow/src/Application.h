@@ -1,5 +1,4 @@
-#ifndef SNOW_APPLICATION_H
-#define SNOW_APPLICATION_H
+#pragma once
 
 namespace Snow {
     class Application {
@@ -13,5 +12,3 @@ namespace Snow {
 
     extern Application *CreateApplication();
 }
-
-#endif //SNOW_APPLICATION_H

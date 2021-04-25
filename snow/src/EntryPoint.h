@@ -2,8 +2,7 @@
 // Created by tony on 24.04.2021.
 //
 
-#ifndef ENTRYPOINT_H
-#define ENTRYPOINT_H
+#pragma once
 
 #include "Application.h"
 
@@ -17,5 +16,3 @@ int main(int argc, char **argv) {
 
     return 0;
 }
-
-#endif //ENTRYPOINT_H
