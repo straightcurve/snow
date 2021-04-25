@@ -5,4 +5,4 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(sandbox src/main.cpp)
 target_link_libraries(sandbox PUBLIC snow)
-add_compile_definitions(SNOW_ENABLE_ASSERTS=FALSE)
+add_compile_definitions(SNOW_ENABLE_ASSERTS=TRUE)

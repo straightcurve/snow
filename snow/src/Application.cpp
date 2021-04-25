@@ -1,11 +1,13 @@
 #include "Application.h"
 
 namespace Snow {
-    Application::Application() {}
-
-    Application::~Application() {}
+    Application::Application() {
+        window = std::make_unique<Window>();
+    }
 
     void Application::run() {
-        while (true);
+        while (is_running)
+            if (window != nullptr)
+                window->update();
     }
 }

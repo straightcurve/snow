@@ -4,6 +4,6 @@
 
 #pragma once
 
-#include <Log.h>
+#include <Snow/Log.h>
 #include <Application.h>
 #include <EntryPoint.h>
