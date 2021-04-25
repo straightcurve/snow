@@ -4,6 +4,8 @@
 
 #ifndef SNOW_H
 #define SNOW_H
+
+#include <Log.h>
 #include <Application.h>
 #include <EntryPoint.h>
 

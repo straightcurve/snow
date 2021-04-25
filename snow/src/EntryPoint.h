@@ -8,6 +8,9 @@
 #include "Application.h"
 
 int main(int argc, char **argv) {
+    Snow::Log::init();
+    SNOW_CORE_INFO("Hello!");
+
     auto app = Snow::CreateApplication();
     app->run();
     delete app;
