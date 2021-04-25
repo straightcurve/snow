@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Window.h"
+#include <Snow/Window.h>
 
 namespace Snow {
     class Application {

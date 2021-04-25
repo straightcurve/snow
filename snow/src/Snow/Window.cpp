@@ -2,7 +2,7 @@
 // Created by Sweet Acid on 25.04.2021.
 //
 
-#include "Window.h"
+#include <Snow/Window.h>
 
 namespace Snow {
     static bool s_glfw_initialized;

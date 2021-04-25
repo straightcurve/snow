@@ -5,16 +5,18 @@ project(snow)
 set(CMAKE_CXX_STANDARD 17)
 
 # Source files
-set(SRC_DIR "src")
 set(LIB_DIR "external")
-set(SOURCES "${SRC_DIR}/Application.cpp" src/Snow.h src/EntryPoint.h src/Snow/Log.cpp src/Snow/Log.h src/pch.h src/Snow/Core.h src/Window.h src/Window.cpp)
+set(SOURCES
+        src/Snow/Application.cpp
+        src/Snow/Log.cpp
+        src/Snow/Window.cpp)
 
 # Library definition and properties
 add_library(${PROJECT_NAME} SHARED ${SOURCES})
-target_include_directories(${PROJECT_NAME} PUBLIC "${SRC_DIR}")
+target_include_directories(${PROJECT_NAME} PUBLIC src)
 
 # PCH
-target_precompile_headers(snow PRIVATE "${SRC_DIR}/pch.h")
+target_precompile_headers(snow PRIVATE src/pch.h)
 
 # spdlog
 set(SPDLOG_DIR "${LIB_DIR}/spdlog")

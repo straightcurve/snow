@@ -1,4 +1,4 @@
-#include "Application.h"
+#include <Snow/Application.h>
 
 namespace Snow {
     Application::Application() {

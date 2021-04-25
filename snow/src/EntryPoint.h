@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "Application.h"
+#include <Snow/Application.h>
 
 int main(int argc, char **argv) {
     Snow::Log::init();
