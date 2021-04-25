@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD 17)
 # Source files
 set(SRC_DIR "src")
 set(LIB_DIR "external")
-set(SOURCES "${SRC_DIR}/Application.cpp" src/Snow.h src/EntryPoint.h src/Log.cpp src/Log.h src/pch.h)
+set(SOURCES "${SRC_DIR}/Application.cpp" src/Snow.h src/EntryPoint.h src/Log.cpp src/Log.h src/pch.h src/Core.h)
 
 # Library definition and properties
 add_library(${PROJECT_NAME} SHARED ${SOURCES})
