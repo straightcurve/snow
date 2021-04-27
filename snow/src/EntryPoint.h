@@ -8,7 +8,7 @@
 
 int main(int argc, char **argv) {
     Snow::Log::init();
-    SNOW_CORE_INFO("Hello!");
+    SNOW_CORE_INFO("Look! It started snowing!");
 
     auto app = Snow::CreateApplication();
     app->run();

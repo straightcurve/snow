@@ -10,7 +10,11 @@
 namespace Snow {
     class Window {
     private:
-        GLFWwindow *window = nullptr;
+        struct Callbacks {
+            std::function<void()> closed;
+        };
+        Callbacks m_callbacks;
+        GLFWwindow *m_window = nullptr;
         bool vsync = true;
     public:
         Window();
@@ -20,6 +24,8 @@ namespace Snow {
         bool get_vsync();
 
         void set_vsync(bool enabled);
+
+        void on_window_closed(std::function<void()>);
 
         void update();
     };

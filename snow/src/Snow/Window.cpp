@@ -9,21 +9,27 @@ namespace Snow {
 
     Window::Window() {
         if (!s_glfw_initialized) {
-            int success = glfwInit();
-            SNOW_CORE_ASSERT(success, "Failed to initialize GLFW..");
-            s_glfw_initialized = true;
+            s_glfw_initialized = glfwInit();
+            SNOW_CORE_ASSERT(s_glfw_initialized, "Failed to initialize GLFW..");
         }
 
-        window = glfwCreateWindow(1280, 720, "Snow", nullptr, nullptr);
-        glfwMakeContextCurrent(window);
-        glfwSwapInterval(vsync);
+        m_window = glfwCreateWindow(1280, 720, "Snow", nullptr, nullptr);
+        glfwMakeContextCurrent(m_window);
+        glfwSetWindowUserPointer(m_window, &m_callbacks);
+        set_vsync(vsync);
+
+        glfwSetWindowCloseCallback(m_window, [](auto window) {
+            Callbacks &callbacks = *(Callbacks *) glfwGetWindowUserPointer(window);
+            if (callbacks.closed != nullptr)
+                callbacks.closed();
+        });
     }
 
     Window::~Window() {
         if (!s_glfw_initialized)
             return;
 
-        glfwDestroyWindow(window);
+        glfwDestroyWindow(m_window);
     }
 
     bool Window::get_vsync() {
@@ -43,6 +49,10 @@ namespace Snow {
         SNOW_CORE_ASSERT(s_glfw_initialized, "Tried to update window before GLFW has been initialized!");
 
         glfwPollEvents();
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(m_window);
+    }
+
+    void Window::on_window_closed(std::function<void()> callback) {
+        m_callbacks.closed = std::move(callback);
     }
 }
