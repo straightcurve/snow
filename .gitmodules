@@ -1,7 +1,9 @@
 [submodule "snow/external/spdlog"]
 	path = snow/external/spdlog
 	url = https://github.com/gabime/spdlog.git
-
 [submodule "snow/external/glfw"]
 	path = snow/external/glfw
 	url = git@github.com:glfw/glfw.git
+[submodule "imgui"]
+	path = imgui
+	url = git@github.com:straightcurve/imgui.git
