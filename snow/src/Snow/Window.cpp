@@ -3,6 +3,7 @@
 //
 
 #include <Snow/Window.h>
+#include <glad/glad.h>
 
 namespace Snow {
     static bool s_glfw_initialized;
@@ -23,6 +24,9 @@ namespace Snow {
             if (callbacks.closed != nullptr)
                 callbacks.closed();
         });
+
+        int glad_status = gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
+        SNOW_CORE_ASSERT(glad_status, "Failed to initialize graphics API..");
     }
 
     Window::~Window() {
