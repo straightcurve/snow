@@ -29,14 +29,16 @@ namespace Snow {
         int glad_status = gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
         SNOW_CORE_ASSERT(glad_status, "Failed to initialize graphics API..");
 
-        GUI::init();
+        GUI::init(m_window);
     }
 
     Window::~Window() {
         if (!s_glfw_initialized)
             return;
 
+        GUI::shutdown();
         glfwDestroyWindow(m_window);
+        glfwTerminate();
     }
 
     bool Window::get_vsync() {
@@ -56,6 +58,16 @@ namespace Snow {
         SNOW_CORE_ASSERT(s_glfw_initialized, "Tried to update window before GLFW has been initialized!");
 
         glfwPollEvents();
+
+        //  temporary
+        int display_w, display_h;
+        glfwGetFramebufferSize(m_window, &display_w, &display_h);
+        glViewport(0, 0, display_w, display_h);
+        ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+        glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w,
+                     clear_color.w);
+        glClear(GL_COLOR_BUFFER_BIT);
+
         GUI::update();
         glfwSwapBuffers(m_window);
     }

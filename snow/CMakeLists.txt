@@ -8,6 +8,8 @@ set(CMAKE_CXX_STANDARD 17)
 set(LIB_DIR "external")
 
 file(GLOB SOURCES
+        src/**/**/**/*.h
+        src/**/**/**/*.cpp
         src/**/**/*.h
         src/**/**/*.cpp
         src/**/*.h
