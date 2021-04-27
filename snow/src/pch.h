@@ -7,4 +7,6 @@
 #include <csignal>
 #include <vector>
 
+#include <imgui.h>
+
 #include <Snow/Log.h>

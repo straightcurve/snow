@@ -6,14 +6,21 @@ set(CMAKE_CXX_STANDARD 17)
 
 # Source files
 set(LIB_DIR "external")
-set(SOURCES
-        src/Snow/Application.cpp
-        src/Snow/Log.cpp
-        src/Snow/Window.cpp src/Snow/Events/Event.cpp src/Snow/Events/Event.h)
+
+file(GLOB SOURCES
+        src/**/**/*.h
+        src/**/**/*.cpp
+        src/**/*.h
+        src/**/*.cpp
+        src/*.h
+        src/*.cpp
+        )
 
 # Library definition and properties
 add_library(${PROJECT_NAME} SHARED ${SOURCES})
 target_include_directories(${PROJECT_NAME} PUBLIC src)
+target_include_directories(snow PUBLIC ../imgui)
+target_link_libraries(snow imgui)
 
 # PCH
 target_precompile_headers(snow PRIVATE src/pch.h)
