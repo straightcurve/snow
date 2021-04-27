@@ -5,6 +5,14 @@ namespace Snow {
         window = std::make_unique<Window>();
 
         window->on_window_closed([=]() {
+            try {
+                exit.dispatch();
+            } catch (std::exception &exception) {
+                SNOW_CORE_ERROR(exception.what());
+            } catch (const char *exception) {
+                SNOW_CORE_ERROR(exception);
+            }
+
             this->is_running = false;
         });
     }

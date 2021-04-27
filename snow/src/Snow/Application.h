@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Snow/Window.h>
+#include <Snow/Events/Event.h>
 
 namespace Snow {
     class Application {
@@ -10,6 +11,8 @@ namespace Snow {
         ~Application() = default;
 
         void run();
+
+        Event exit;
 
     private:
         bool is_running = true;

@@ -5,5 +5,6 @@
 #pragma once
 
 #include <csignal>
+#include <vector>
 
 #include <Snow/Log.h>

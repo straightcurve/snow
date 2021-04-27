@@ -9,7 +9,7 @@ set(LIB_DIR "external")
 set(SOURCES
         src/Snow/Application.cpp
         src/Snow/Log.cpp
-        src/Snow/Window.cpp)
+        src/Snow/Window.cpp src/Snow/Events/Event.cpp src/Snow/Events/Event.h)
 
 # Library definition and properties
 add_library(${PROJECT_NAME} SHARED ${SOURCES})
