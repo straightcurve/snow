@@ -4,6 +4,7 @@
 
 #include <Snow/Window.h>
 #include <glad/glad.h>
+#include <Snow/GUI/GUI.h>
 
 namespace Snow {
     static bool s_glfw_initialized;
@@ -27,6 +28,8 @@ namespace Snow {
 
         int glad_status = gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
         SNOW_CORE_ASSERT(glad_status, "Failed to initialize graphics API..");
+
+        GUI::init();
     }
 
     Window::~Window() {
@@ -53,6 +56,7 @@ namespace Snow {
         SNOW_CORE_ASSERT(s_glfw_initialized, "Tried to update window before GLFW has been initialized!");
 
         glfwPollEvents();
+        GUI::update();
         glfwSwapBuffers(m_window);
     }
 
