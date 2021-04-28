@@ -10,3 +10,4 @@
 #include <EntryPoint.h>
 #include <Snow/GUI/GUI.h>
 #include <Snow/Events/Event.h>
+#include <Snow/Input/Input.h>

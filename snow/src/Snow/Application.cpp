@@ -1,4 +1,5 @@
 #include <Snow/Application.h>
+#include <Snow/Input/Input.h>
 
 namespace Snow {
     Application::Application() {
@@ -15,6 +16,8 @@ namespace Snow {
 
             this->is_running = false;
         });
+
+        Input::set_window(window.get());
     }
 
     void Application::run() {
