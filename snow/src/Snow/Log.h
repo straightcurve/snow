@@ -35,4 +35,4 @@ namespace Snow {
 #define SNOW_ERROR(...) ::Snow::Log::get_client_logger()->error(__VA_ARGS__);
 #define SNOW_WARN(...)  ::Snow::Log::get_client_logger()->warn(__VA_ARGS__);
 #define SNOW_INFO(...)  ::Snow::Log::get_client_logger()->info(__VA_ARGS__);
-#define SNOW_TRACE(...) ::Snow::Log::ge~t_client_logger()->trace(__VA_ARGS__);
+#define SNOW_TRACE(...) ::Snow::Log::get_client_logger()->trace(__VA_ARGS__);

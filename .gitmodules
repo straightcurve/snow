@@ -7,3 +7,6 @@
 [submodule "imgui"]
 	path = imgui
 	url = git@github.com:straightcurve/imgui.git
+[submodule "snow/external/glm"]
+	path = snow/external/glm
+	url = https://github.com/g-truc/glm.git

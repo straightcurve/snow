@@ -22,6 +22,7 @@ file(GLOB SOURCES
 add_library(snow SHARED ${SOURCES})
 target_include_directories(snow PUBLIC src)
 target_include_directories(snow PUBLIC ../imgui)
+target_include_directories(snow PUBLIC external/glm/glm)
 target_link_libraries(snow imgui)
 
 # PCH
