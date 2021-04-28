@@ -7,7 +7,7 @@
 #include <Snow/Core.h>
 #include <GLFW/glfw3.h>
 
-namespace Snow {
+namespace Snow::Impl {
     class Window {
     private:
         struct Callbacks {
@@ -15,13 +15,19 @@ namespace Snow {
         };
         Callbacks m_callbacks;
         GLFWwindow *m_window = nullptr;
-        bool vsync = true;
+        bool m_vsync = true;
     public:
         Window();
 
         ~Window();
 
-        bool get_vsync();
+        inline bool get_vsync() {
+            return m_vsync;
+        }
+
+        inline GLFWwindow *get_window() {
+            return m_window;
+        }
 
         void set_vsync(bool enabled);
 

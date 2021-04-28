@@ -2,7 +2,7 @@
 
 namespace Snow {
     Application::Application() {
-        window = std::make_unique<Window>();
+        window = std::make_unique<Snow::Impl::Window>();
 
         window->on_window_closed([=]() {
             try {

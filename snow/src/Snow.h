@@ -6,5 +6,7 @@
 
 #include <Snow/Core.h>
 #include <Snow/Application.h>
+#include <Snow/Window.h>
 #include <EntryPoint.h>
+#include <Snow/GUI/GUI.h>
 #include <Snow/Events/Event.h>

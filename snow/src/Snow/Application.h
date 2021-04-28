@@ -16,7 +16,7 @@ namespace Snow {
 
     private:
         bool is_running = true;
-        std::unique_ptr<Window> window;
+        std::unique_ptr<Snow::Impl::Window> window;
     };
 
     extern Application *CreateApplication();

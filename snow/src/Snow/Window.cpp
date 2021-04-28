@@ -6,7 +6,7 @@
 #include <glad/glad.h>
 #include <Snow/GUI/GUI.h>
 
-namespace Snow {
+namespace Snow::Impl {
     static bool s_glfw_initialized;
 
     Window::Window() {
@@ -18,7 +18,7 @@ namespace Snow {
         m_window = glfwCreateWindow(1280, 720, "Snow", nullptr, nullptr);
         glfwMakeContextCurrent(m_window);
         glfwSetWindowUserPointer(m_window, &m_callbacks);
-        set_vsync(vsync);
+        set_vsync(m_vsync);
 
         glfwSetWindowCloseCallback(m_window, [](auto window) {
             Callbacks &callbacks = *(Callbacks *) glfwGetWindowUserPointer(window);
@@ -41,12 +41,8 @@ namespace Snow {
         glfwTerminate();
     }
 
-    bool Window::get_vsync() {
-        return vsync;
-    }
-
     void Window::set_vsync(bool enabled) {
-        vsync = enabled;
+        m_vsync = enabled;
 
         if (!s_glfw_initialized)
             return;
