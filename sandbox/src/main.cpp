@@ -3,13 +3,7 @@
 
 class Sandbox : public Snow::Application {
 public:
-    Sandbox() {
-
-    }
-
-    ~Sandbox() {
-
-    }
+    Sandbox() = default;
 };
 
 Snow::Application *Snow::CreateApplication() {
