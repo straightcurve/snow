@@ -5,3 +5,5 @@ project(snow_main)
 add_subdirectory(imgui)
 add_subdirectory(snow)
 add_subdirectory(sandbox)
+
+file(COPY snow/assets DESTINATION "${CMAKE_BINARY_DIR}/sandbox")
