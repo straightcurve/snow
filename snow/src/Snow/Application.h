@@ -8,7 +8,11 @@ namespace Snow {
     public:
         Application();
 
-        ~Application();
+        /**
+         * marked virtual because we need to
+         * clean up other systems e.g. Resources
+         */
+        virtual ~Application();
 
         void run();
 

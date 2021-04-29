@@ -14,3 +14,4 @@
 #include <Snow/Graphics/Shader.h>
 #include <Snow/Graphics/Texture.h>
 #include <Snow/Resources.h>
+#include <Snow/Graphics/SpriteRenderer.h>
