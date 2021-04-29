@@ -19,10 +19,11 @@ file(GLOB SOURCES
         )
 
 # Library definition and properties
-add_library(snow SHARED ${SOURCES})
+add_library(snow STATIC ${SOURCES})
 target_include_directories(snow PUBLIC src)
 target_include_directories(snow PUBLIC ../imgui)
 target_include_directories(snow PUBLIC external/glm/glm)
+target_include_directories(snow PUBLIC external/stb)
 target_link_libraries(snow imgui)
 
 # PCH
@@ -49,4 +50,4 @@ add_library("glad" "${GLAD_DIR}/src/glad.c")
 target_include_directories("glad" PRIVATE "${GLAD_DIR}/include")
 target_include_directories(snow PRIVATE "${GLAD_DIR}/include")
 target_link_libraries(snow "glad" "${CMAKE_DL_LIBS}")
-target_compile_options(glad PRIVATE -fPIC)
+#target_compile_options(glad PRIVATE -fPIC)
