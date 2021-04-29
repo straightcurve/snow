@@ -16,6 +16,8 @@ file(GLOB SOURCES
         src/**/*.cpp
         src/*.h
         src/*.cpp
+        external/stb/*.cpp
+        external/stb/*.h
         )
 
 # Library definition and properties

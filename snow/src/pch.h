@@ -6,6 +6,10 @@
 
 #include <csignal>
 #include <vector>
+#include <string>
+#include <sstream>
+#include <map>
+#include <fstream>
 
 #include <imgui.h>
 

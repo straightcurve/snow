@@ -1,5 +1,6 @@
 #include <Snow/Application.h>
 #include <Snow/Input/Input.h>
+#include "Resources.h"
 
 namespace Snow {
     Application::Application() {
@@ -23,5 +24,9 @@ namespace Snow {
     void Application::run() {
         while (is_running)
             window->update();
+    }
+
+    Application::~Application() {
+        Resources::cleanup();
     }
 }

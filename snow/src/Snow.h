@@ -11,3 +11,6 @@
 #include <Snow/GUI/GUI.h>
 #include <Snow/Events/Event.h>
 #include <Snow/Input/Input.h>
+#include <Snow/Graphics/Shader.h>
+#include <Snow/Graphics/Texture.h>
+#include <Snow/Resources.h>
