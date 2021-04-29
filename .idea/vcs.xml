@@ -3,6 +3,7 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/imgui" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/snow/external/glm" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/snow/external/spdlog" vcs="Git" />
   </component>
 </project>
