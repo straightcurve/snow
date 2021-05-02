@@ -16,6 +16,7 @@ namespace Snow {
             const char *geometry_shader_path,
             std::string name
     ) {
+        if (shaders[name].id > 0) return shaders[name];
         shaders[name] = load_shader_from_file(vertex_shader_path, fragment_shader_path, geometry_shader_path);
         return shaders[name];
     }
@@ -25,6 +26,7 @@ namespace Snow {
     }
 
     Texture2D Resources::load_texture(const char *file, bool alpha, std::string name) {
+        if (textures[name].id > 0) return textures[name];
         textures[name] = load_texture_from_file(file, alpha);
         return textures[name];
     }
@@ -37,7 +39,7 @@ namespace Snow {
         for (auto iter : shaders)
             glDeleteProgram(iter.second.id);
         for (auto iter : textures)
-            glDeleteTextures(1, &iter.second.ID);
+            glDeleteTextures(1, &iter.second.id);
     }
 
     Shader Resources::load_shader_from_file(
