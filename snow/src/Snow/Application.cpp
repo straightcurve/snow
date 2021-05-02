@@ -22,11 +22,15 @@ namespace Snow {
 
         GUI::init(window.get());
         Input::set_window(window.get());
+
+        sprite_renderer_system = new SpriteRendererSystem();
     }
 
     void Application::run() {
         while (is_running) {
             window->update();
+
+            sprite_renderer_system->update(registry);
 
             update();
 
@@ -37,6 +41,7 @@ namespace Snow {
     }
 
     Application::~Application() {
+        delete sprite_renderer_system;
         Resources::cleanup();
         GUI::shutdown();
     }

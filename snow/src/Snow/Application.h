@@ -2,6 +2,8 @@
 
 #include <Snow/Window.h>
 #include <Snow/Events/Event.h>
+#include <entt.hpp>
+#include <Snow/Core/SpriteRendererSystem.h>
 
 namespace Snow {
     class Application {
@@ -20,9 +22,15 @@ namespace Snow {
 
         Event exit;
 
+    protected:
+        //  FIXME: temporary
+        entt::registry registry;
+
     private:
         bool is_running = true;
         std::unique_ptr<Snow::Impl::Window> window;
+
+        SpriteRendererSystem *sprite_renderer_system;
     };
 
     extern Application *CreateApplication();
