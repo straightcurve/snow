@@ -48,7 +48,7 @@ namespace Snow {
     std::pair<double, double> Input::get_mouse_position() {
         auto instance = get_instance();
 
-        SNOW_CORE_ASSERT(instance.m_window != nullptr, "Input system has not been initialized!");
+        SNOW_CORE_ASSERT(instance->m_window != nullptr, "Input system has not been initialized!");
 
         std::pair<double, double> pos;
         glfwGetCursorPos(instance->m_window->get_window(), &pos.first, &pos.second);
