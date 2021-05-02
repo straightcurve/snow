@@ -14,7 +14,7 @@ namespace Snow {
              wrap_t(GL_REPEAT),
              filter_min(GL_LINEAR),
              filter_max(GL_LINEAR) {
-        glGenTextures(1, &this->ID);
+        glGenTextures(1, &this->id);
     }
 
     void Texture2D::generate(unsigned int _width, unsigned int _height, unsigned char *data) {
@@ -22,7 +22,7 @@ namespace Snow {
         this->height = _height;
 
         //  create texture
-        glBindTexture(GL_TEXTURE_2D, this->ID);
+        glBindTexture(GL_TEXTURE_2D, this->id);
         glTexImage2D(GL_TEXTURE_2D, 0, this->internal_format, _width, _height, 0, this->image_format, GL_UNSIGNED_BYTE,
                      data);
 
@@ -37,6 +37,6 @@ namespace Snow {
     }
 
     void Texture2D::bind() const {
-        glBindTexture(GL_TEXTURE_2D, this->ID);
+        glBindTexture(GL_TEXTURE_2D, this->id);
     }
 }

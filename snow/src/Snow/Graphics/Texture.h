@@ -11,7 +11,7 @@ namespace Snow {
      */
     class Texture2D {
     public:
-        unsigned int ID;
+        unsigned int id;
 
         /**
          * in px
