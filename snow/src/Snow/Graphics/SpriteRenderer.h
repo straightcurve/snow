@@ -24,7 +24,7 @@ namespace Snow {
 
     private:
         Shader shader;
-        unsigned int vao;
+        uint32_t vao, vbo, ebo;
 
         void init();
     };

@@ -12,7 +12,9 @@ namespace Snow {
     }
 
     SpriteRenderer::~SpriteRenderer() {
-        glDeleteVertexArrays(1, &this->vao);
+        glDeleteVertexArrays(1, &vao);
+        glDeleteBuffers(1, &vbo);
+        glDeleteBuffers(1, &ebo);
     }
 
     void SpriteRenderer::draw(
@@ -55,31 +57,38 @@ namespace Snow {
         texture.bind();
 
         glBindVertexArray(this->vao);
-        glDrawArrays(GL_TRIANGLES, 0, 6);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
         glBindVertexArray(0);
     }
 
     void SpriteRenderer::init() {
-        unsigned int vbo;
         float vertices[] = {
                 // pos      // tex
                 0.0f, 1.0f, 0.0f, 1.0f,
                 1.0f, 0.0f, 1.0f, 0.0f,
                 0.0f, 0.0f, 0.0f, 0.0f,
-
-                0.0f, 1.0f, 0.0f, 1.0f,
                 1.0f, 1.0f, 1.0f, 1.0f,
-                1.0f, 0.0f, 1.0f, 0.0f
+        };
+
+        uint32_t triangles[] = {
+                0, 1, 2,
+                0, 3, 1,
         };
 
         glGenVertexArrays(1, &this->vao);
         glGenBuffers(1, &vbo);
+        glGenBuffers(1, &ebo);
+
+        glBindVertexArray(this->vao);
 
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
         glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices,
                      GL_STATIC_DRAW);
 
-        glBindVertexArray(this->vao);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(triangles), triangles,
+                     GL_STATIC_DRAW);
+
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(
                 0, 4, GL_FLOAT,
@@ -88,5 +97,6 @@ namespace Snow {
         );
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindVertexArray(0);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     }
 }
