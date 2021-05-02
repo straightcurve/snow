@@ -18,3 +18,4 @@
 #include <Snow/Graphics/SpriteRenderer.h>
 #include <Snow/Core/SpriteComponent.h>
 #include <Snow/Core/TransformComponent.h>
+#include <Snow/GUI/Window.h>
