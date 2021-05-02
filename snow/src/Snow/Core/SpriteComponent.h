@@ -8,7 +8,7 @@
 
 namespace Snow {
     struct SpriteComponent {
-        uint32_t texture;
-        glm::vec3 color;
+        glm::vec3 color = glm::vec3(1.f);
+        uint32_t texture = -1;
     };
 }
