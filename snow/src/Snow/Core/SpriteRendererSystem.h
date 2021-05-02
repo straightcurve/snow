@@ -7,6 +7,7 @@
 #include <Snow/Graphics/SpriteRenderer.h>
 #include <entt.hpp>
 #include <Snow/Resources.h>
+#include <Snow/Camera.h>
 
 namespace Snow {
     class SpriteRendererSystem {
@@ -14,6 +15,9 @@ namespace Snow {
 
         //  temporary
         Shader shader { };
+
+        //  FIXME: camera should be supplied by someone else
+        Camera camera = Camera(2);
 
     public:
         SpriteRendererSystem() {
@@ -23,13 +27,10 @@ namespace Snow {
                     nullptr,
                     "base"
             );
-            glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(1280),
-                                              static_cast<float>(720), 0.0f,
-                                              -1.0f,
-                                              1.0f);
+
             shader.use();
             shader.set_int("image", 0);
-            shader.set_mat4("projection", projection);
+            shader.set_mat4("projection", camera.projection);
         }
 
         void update(entt::registry &registry) {
