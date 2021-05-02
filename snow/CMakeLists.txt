@@ -33,7 +33,9 @@ target_include_directories(snow PUBLIC src)
 target_include_directories(snow PUBLIC ../imgui)
 target_include_directories(snow PUBLIC external/glm/glm)
 target_include_directories(snow PUBLIC external/stb)
+target_include_directories(snow PUBLIC external/entt)
 target_link_libraries(snow imgui)
+add_compile_definitions(SNOW_ENABLE_ASSERTS=TRUE)
 
 # PCH
 target_precompile_headers(snow PRIVATE src/pch.h)
