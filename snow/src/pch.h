@@ -11,6 +11,7 @@
 #include <map>
 #include <fstream>
 
+#include <glm.hpp>
 #include <imgui.h>
 
 #include <Snow/Log.h>
