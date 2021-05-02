@@ -14,6 +14,8 @@ namespace Snow {
         ImGuiIO &io = ImGui::GetIO();
         io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
         io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
+        io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+
         io.DisplaySize = ImVec2(1280, 720);
         io.DeltaTime = .16f;
 
