@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <entt.hpp>
 #include <Snow/Core.h>
 #include <Snow/Application.h>
 #include <Snow/Window.h>
