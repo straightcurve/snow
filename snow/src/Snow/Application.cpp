@@ -1,4 +1,6 @@
 #include <Snow/Application.h>
+#include <Snow/GUI/GUI.h>
+#include <Snow/Graphics/Renderer.h>
 #include <Snow/Input/Input.h>
 #include "Resources.h"
 
@@ -18,15 +20,24 @@ namespace Snow {
             this->is_running = false;
         });
 
+        GUI::init(window.get());
         Input::set_window(window.get());
     }
 
     void Application::run() {
-        while (is_running)
+        while (is_running) {
             window->update();
+
+            update();
+
+            GUI::update();
+
+            Renderer::swap_buffers(window.get());
+        }
     }
 
     Application::~Application() {
         Resources::cleanup();
+        GUI::shutdown();
     }
 }

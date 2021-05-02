@@ -15,3 +15,5 @@
 #include <Snow/Graphics/Texture.h>
 #include <Snow/Resources.h>
 #include <Snow/Graphics/SpriteRenderer.h>
+#include <Snow/Core/SpriteComponent.h>
+#include <Snow/Core/TransformComponent.h>

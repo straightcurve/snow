@@ -16,6 +16,8 @@ namespace Snow {
 
         void run();
 
+        virtual void update() = 0;
+
         Event exit;
 
     private:
