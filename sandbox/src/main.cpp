@@ -1,5 +1,6 @@
 #include <iostream>
 #include <Snow.h>
+#include "ExampleWindow.h"
 
 class Sandbox : public Snow::Application {
 public:
@@ -28,6 +29,8 @@ public:
 
         auto &sprite2 = registry.emplace<Snow::SpriteComponent>(e2);
         sprite2.texture = tex.id;
+
+        Snow::GUI::add_window(new ExampleWindow());
     }
 
     void update() override {
