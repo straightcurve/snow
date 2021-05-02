@@ -7,7 +7,7 @@
 #include "GUI.h"
 
 namespace Snow {
-    void Snow::GUI::init(GLFWwindow *window) {
+    void Snow::GUI::init(Impl::Window *window) {
         ImGui::CreateContext();
         ImGui::StyleColorsDark();
 
@@ -17,7 +17,7 @@ namespace Snow {
         io.DisplaySize = ImVec2(1280, 720);
         io.DeltaTime = .16f;
 
-        ImGui_ImplGlfw_InitForOpenGL(window, true);
+        ImGui_ImplGlfw_InitForOpenGL(window->get_window(), true);
         ImGui_ImplOpenGL3_Init("#version 330 core");
     }
 

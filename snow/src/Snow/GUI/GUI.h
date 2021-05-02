@@ -5,12 +5,13 @@
 #pragma once
 
 #include <GLFW/glfw3.h>
+#include <Snow/Window.h>
 
 namespace Snow {
 
     class GUI {
     public:
-        static void init(GLFWwindow *);
+        static void init(Impl::Window *);
 
         static void shutdown();
 
