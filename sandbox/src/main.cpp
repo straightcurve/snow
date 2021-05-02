@@ -4,6 +4,10 @@
 class Sandbox : public Snow::Application {
 public:
     Sandbox() = default;
+
+    void update() override {
+
+    }
 };
 
 Snow::Application *Snow::CreateApplication() {
