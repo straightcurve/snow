@@ -5,7 +5,8 @@
 #pragma once
 
 #include <glm.hpp>
-#include <gtc/matrix_transform.hpp>
+#include <Snow/Core/SpriteComponent.h>
+#include <Snow/Core/TransformComponent.h>
 #include "Texture.h"
 #include "Shader.h"
 
@@ -22,8 +23,14 @@ namespace Snow {
                 float angle = 0.0f, glm::vec3 color = glm::vec3(1.0f)
         );
 
+        void draw(
+                const SpriteComponent &sprite,
+                const TransformComponent &transform,
+                Shader &shader
+        ) const;
+
     private:
-        Shader shader;
+        Shader _shader;
         uint32_t vao = 0, vbo = 0, ebo = 0;
 
         constexpr static float vertices[] = {

@@ -7,7 +7,7 @@
 
 namespace Snow {
     SpriteRenderer::SpriteRenderer(Shader &shader) {
-        this->shader = shader;
+        this->_shader = shader;
         this->init();
     }
 
@@ -22,7 +22,7 @@ namespace Snow {
             glm::vec2 size, float angle,
             glm::vec3 color
     ) {
-        this->shader.use();
+        this->_shader.use();
         glm::mat4 model = glm::mat4(1.0f);
 
         //  scale -> rotation -> translation
@@ -50,8 +50,8 @@ namespace Snow {
 
         model = glm::scale(model, glm::vec3(size, 1.0f));
 
-        this->shader.set_mat4("model", model);
-        this->shader.set_vec3f("spriteColor", color);
+        this->_shader.set_mat4("model", model);
+        this->_shader.set_vec3f("spriteColor", color);
 
         glActiveTexture(GL_TEXTURE0);
         texture.bind();
@@ -85,5 +85,47 @@ namespace Snow {
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindVertexArray(0);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    }
+
+    void SpriteRenderer::draw(
+            const SpriteComponent &sprite,
+            const TransformComponent &transform,
+            Shader &shader
+    ) const {
+        shader.use();
+        glm::mat4 model = glm::mat4(1.0f);
+
+        //  scale -> rotation -> translation
+        //  we do it reversed because reasons
+        model = glm::translate(model, glm::vec3(transform.position, 0.0f));
+
+        // move origin of rotation to center of quad
+        model = glm::translate(model, glm::vec3(
+                0.5f * transform.scale,
+                0.0f)
+        );
+        model = glm::rotate(
+                model,
+                glm::radians(transform.rotation),
+                glm::vec3(0.0f, 0.0f, 1.0f)
+        );
+
+        // move origin back
+        model = glm::translate(model, glm::vec3(
+                -0.5f * transform.scale,
+                0.0f)
+        );
+
+        model = glm::scale(model, glm::vec3(transform.scale, 1.0f));
+
+        shader.set_mat4("model", model);
+        shader.set_vec3f("spriteColor", sprite.color);
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, sprite.texture);
+
+        glBindVertexArray(vao);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+        glBindVertexArray(0);
     }
 }
