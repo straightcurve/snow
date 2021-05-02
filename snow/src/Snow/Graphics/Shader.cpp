@@ -6,9 +6,8 @@
 #include <glad/glad.h>
 
 namespace Snow {
-    Shader &Shader::use() {
+    void Shader::use() const {
         glUseProgram(this->id);
-        return *this;
     }
 
     void Shader::compile(
