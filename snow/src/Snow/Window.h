@@ -16,6 +16,8 @@ namespace Snow::Impl {
         Callbacks m_callbacks;
         GLFWwindow *m_window = nullptr;
         bool m_vsync = true;
+
+        void update_viewport_size();
     public:
         Window();
 
