@@ -23,16 +23,22 @@ namespace Snow {
         GUI::init(window.get());
         Input::set_window(window.get());
 
-        sprite_renderer_system = new SpriteRendererSystem();
+        auto camera_entity = registry.create();
+        auto camera = CameraComponent();
+        registry.emplace<CameraComponent>(camera_entity, camera);
+        registry.emplace<TransformComponent>(camera_entity);
+
+        sprite_renderer_system = new SpriteRendererSystem(registry);
     }
 
     void Application::run() {
         while (is_running) {
             window->update();
 
-            sprite_renderer_system->update(registry);
-
             update();
+
+            CameraSystem::update(registry);
+            sprite_renderer_system->update(registry);
 
             GUI::update();
 
