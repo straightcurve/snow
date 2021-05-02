@@ -13,15 +13,9 @@
 namespace Snow {
     class SpriteRenderer {
     public:
-        SpriteRenderer(Shader &shader);
+        SpriteRenderer() = default;
 
         ~SpriteRenderer();
-
-        void draw(
-                Texture2D &texture, glm::vec2 position,
-                glm::vec2 size = glm::vec2(10.0f, 10.0f),
-                float angle = 0.0f, glm::vec3 color = glm::vec3(1.0f)
-        );
 
         void draw(
                 const SpriteComponent &sprite,
@@ -30,7 +24,6 @@ namespace Snow {
         ) const;
 
     private:
-        Shader _shader;
         uint32_t vao = 0, vbo = 0, ebo = 0;
 
         constexpr static float vertices[] = {
