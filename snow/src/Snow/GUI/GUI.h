@@ -3,18 +3,20 @@
 //
 
 #pragma once
-
 #include <GLFW/glfw3.h>
 #include <Snow/Window.h>
+#include <Snow/GUI/Window.h>
 
 namespace Snow {
-
     class GUI {
-    public:
+        friend class Application;
+    private:
+        static std::vector<GUIWindow*> windows;
         static void init(Impl::Window *);
-
         static void shutdown();
-
         static void update();
+
+    public:
+        static void add_window(GUIWindow* window);
     };
 }

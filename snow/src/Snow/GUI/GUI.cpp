@@ -5,9 +5,12 @@
 #include <Snow/GUI/Backends/imgui_impl_opengl3.h>
 #include <Snow/GUI/Backends/imgui_impl_glfw.h>
 #include "GUI.h"
+#include <pch.h>
 
 namespace Snow {
-    void Snow::GUI::init(Impl::Window *window) {
+    std::vector<GUIWindow*> GUI::windows;
+
+    void GUI::init(Impl::Window *window) {
         ImGui::CreateContext();
         ImGui::StyleColorsDark();
 
@@ -24,20 +27,31 @@ namespace Snow {
     }
 
     void GUI::shutdown() {
+        for (auto window : windows)
+            delete window;
+        windows.clear();
+
         ImGui_ImplOpenGL3_Shutdown();
         ImGui_ImplGlfw_Shutdown();
         ImGui::DestroyContext();
     }
 
-    void Snow::GUI::update() {
+    void GUI::update() {
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        static bool show = true;
-        ImGui::ShowDemoWindow(&show);
+        for (auto window : windows) {
+            window->begin();
+            window->update();
+            GUIWindow::end();
+        }
 
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+    }
+
+    void GUI::add_window(GUIWindow *window) {
+        windows.push_back(window);
     }
 }
