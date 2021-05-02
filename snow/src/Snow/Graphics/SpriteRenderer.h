@@ -24,7 +24,20 @@ namespace Snow {
 
     private:
         Shader shader;
-        uint32_t vao, vbo, ebo;
+        uint32_t vao = 0, vbo = 0, ebo = 0;
+
+        constexpr static float vertices[] = {
+                // pos      // tex
+                0.0f, 1.0f, 0.0f, 1.0f,
+                1.0f, 0.0f, 1.0f, 0.0f,
+                0.0f, 0.0f, 0.0f, 0.0f,
+                1.0f, 1.0f, 1.0f, 1.0f,
+        };
+
+        constexpr static uint32_t triangles[] = {
+                0, 1, 2,
+                0, 3, 1,
+        };
 
         void init();
     };

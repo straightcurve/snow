@@ -56,30 +56,17 @@ namespace Snow {
         glActiveTexture(GL_TEXTURE0);
         texture.bind();
 
-        glBindVertexArray(this->vao);
+        glBindVertexArray(vao);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
         glBindVertexArray(0);
     }
 
     void SpriteRenderer::init() {
-        float vertices[] = {
-                // pos      // tex
-                0.0f, 1.0f, 0.0f, 1.0f,
-                1.0f, 0.0f, 1.0f, 0.0f,
-                0.0f, 0.0f, 0.0f, 0.0f,
-                1.0f, 1.0f, 1.0f, 1.0f,
-        };
-
-        uint32_t triangles[] = {
-                0, 1, 2,
-                0, 3, 1,
-        };
-
-        glGenVertexArrays(1, &this->vao);
+        glGenVertexArrays(1, &vao);
         glGenBuffers(1, &vbo);
         glGenBuffers(1, &ebo);
 
-        glBindVertexArray(this->vao);
+        glBindVertexArray(vao);
 
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
         glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices,
@@ -93,7 +80,7 @@ namespace Snow {
         glVertexAttribPointer(
                 0, 4, GL_FLOAT,
                 GL_FALSE, 4 * sizeof(float),
-                (void *) 0
+                nullptr
         );
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindVertexArray(0);
