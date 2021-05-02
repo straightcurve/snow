@@ -6,13 +6,7 @@
 #include <glad/glad.h>
 
 namespace Snow {
-    SpriteRenderer::~SpriteRenderer() {
-        glDeleteVertexArrays(1, &vao);
-        glDeleteBuffers(1, &vbo);
-        glDeleteBuffers(1, &ebo);
-    }
-
-    void SpriteRenderer::init() {
+    SpriteRenderer::SpriteRenderer() {
         glGenVertexArrays(1, &vao);
         glGenBuffers(1, &vbo);
         glGenBuffers(1, &ebo);
@@ -36,6 +30,12 @@ namespace Snow {
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindVertexArray(0);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    }
+
+    SpriteRenderer::~SpriteRenderer() {
+        glDeleteVertexArrays(1, &vao);
+        glDeleteBuffers(1, &vbo);
+        glDeleteBuffers(1, &ebo);
     }
 
     void SpriteRenderer::draw(

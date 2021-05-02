@@ -13,7 +13,7 @@
 namespace Snow {
     class SpriteRenderer {
     public:
-        SpriteRenderer() = default;
+        SpriteRenderer();
 
         ~SpriteRenderer();
 
@@ -38,7 +38,5 @@ namespace Snow {
                 0, 1, 2,
                 0, 3, 1,
         };
-
-        void init();
     };
 }
