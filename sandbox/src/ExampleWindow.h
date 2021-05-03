@@ -13,6 +13,6 @@ public:
     }
 
     void update() override {
-        ImGui::LabelText("Something", "%d", 123);
+        ImGui::LabelText("FPS", "%f", 1 / Snow::Time::deltaTime);
     }
 };
