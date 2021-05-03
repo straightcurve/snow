@@ -13,7 +13,7 @@ namespace Snow {
 
     private:
         bool begin() {
-            return ImGui::Begin(name.c_str(), &collapsed);
+            return ImGui::Begin(name.c_str(), &collapsed, window_flags);
         }
 
         static void end() {
@@ -23,6 +23,9 @@ namespace Snow {
     protected:
         std::string name = "Default";
         bool collapsed = false;
+        ImGuiWindowFlags window_flags = ImGuiWindowFlags_None;
+
+        virtual void pre_begin() = 0;
 
     public:
         GUIWindow() = default;

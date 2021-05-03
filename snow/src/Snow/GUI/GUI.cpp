@@ -42,6 +42,7 @@ namespace Snow {
         ImGui::NewFrame();
 
         for (auto window : windows) {
+            window->pre_begin();
             window->begin();
             window->update();
             GUIWindow::end();
