@@ -19,3 +19,4 @@
 #include <Snow/Core/SpriteComponent.h>
 #include <Snow/Core/TransformComponent.h>
 #include <Snow/GUI/Window.h>
+#include <Snow/Core/Time.h>

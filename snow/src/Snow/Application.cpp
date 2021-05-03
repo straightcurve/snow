@@ -2,6 +2,7 @@
 #include <Snow/GUI/GUI.h>
 #include <Snow/Graphics/Renderer.h>
 #include <Snow/Input/Input.h>
+#include <Snow/Core/Time.h>
 #include "Resources.h"
 
 namespace Snow {
@@ -33,6 +34,10 @@ namespace Snow {
 
     void Application::run() {
         while (is_running) {
+            auto time = (float)glfwGetTime();
+            Time::deltaTime = time - Time::time;
+            Time::time = time;
+
             window->update();
 
             update();
