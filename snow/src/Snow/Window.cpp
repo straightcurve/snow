@@ -3,6 +3,7 @@
 //
 
 #include <Snow/Window.h>
+#include <Snow/Core/Screen.h>
 #include <glad/glad.h>
 
 namespace Snow::Impl {
@@ -24,6 +25,18 @@ namespace Snow::Impl {
             Callbacks &callbacks = *(Callbacks *) glfwGetWindowUserPointer(window);
             if (callbacks.closed != nullptr)
                 callbacks.closed();
+        });
+
+        glfwSetFramebufferSizeCallback(m_window, [](auto window, int width, int height) {
+            /**
+             * FIXME: are we sure we want to do this here?
+             */
+            Screen::width = width;
+            Screen::height = height;
+
+            Callbacks &callbacks = *(Callbacks *) glfwGetWindowUserPointer(window);
+            if (callbacks.resized != nullptr)
+                callbacks.resized(width, height);
         });
 
         s_glad_initialized = gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);

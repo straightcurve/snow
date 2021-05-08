@@ -12,6 +12,7 @@ namespace Snow::Impl {
     private:
         struct Callbacks {
             std::function<void()> closed;
+            std::function<void(int width, int height)> resized;
         };
         Callbacks m_callbacks;
         GLFWwindow *m_window = nullptr;

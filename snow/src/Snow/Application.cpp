@@ -3,6 +3,7 @@
 #include <Snow/Graphics/Renderer.h>
 #include <Snow/Input/Input.h>
 #include <Snow/Core/Time.h>
+#include <Snow/Core/Screen.h>
 #include "Resources.h"
 
 namespace Snow {
@@ -30,6 +31,8 @@ namespace Snow {
         registry.emplace<TransformComponent>(camera_entity);
 
         sprite_renderer_system = new SpriteRendererSystem(registry);
+
+        glfwGetWindowSize(window->get_window(), &Screen::width, &Screen::height);
     }
 
     void Application::run() {

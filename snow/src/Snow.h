@@ -21,3 +21,4 @@
 #include <Snow/GUI/Window.h>
 #include <Snow/Core/Time.h>
 #include <Snow/Graphics/RenderTexture.h>
+#include <Snow/Core/Screen.h>
