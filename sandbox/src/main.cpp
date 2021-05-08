@@ -15,8 +15,10 @@ public:
     _XImage *image;
     Display *display;
     Pixmap pixmap;
-    XID xid = 0x4400006;    //  xwininfo
+    XID xid = 0x4800006;    //  xwininfo
     XWindowData host_window;
+
+    entt::entity e, e2;
 
     ~Sandbox() {
         XFreePixmap(display, pixmap);
@@ -49,13 +51,22 @@ public:
                           ZPixmap);
         rt.generate(host_window.width, host_window.height, image->data);
 
-        auto e = registry.create();
+        e = registry.create();
         auto &transform = registry.emplace<Snow::TransformComponent>(e);
-        transform.position = glm::vec2(0, 0);
-        transform.scale = glm::vec2(Snow::Screen::width, Snow::Screen::height);
+        transform.position = glm::vec2(0, -Snow::Screen::height);
+        transform.scale = glm::vec2(Snow::Screen::width,
+                                    Snow::Screen::height * 2);
 
         auto &sprite = registry.emplace<Snow::SpriteComponent>(e);
         sprite.texture = rt.id;
+
+        e2 = registry.create();
+        auto &transform2 = registry.emplace<Snow::TransformComponent>(e2);
+        transform2.position = glm::vec2(0, 0);
+        transform2.scale = glm::vec2(200, 200);
+
+//        auto &sprite2 = registry.emplace<Snow::SpriteComponent>(e2);
+//        sprite2.texture = rt.id;
 
         Snow::GUI::add_window(new ExampleWindow(&host_window));
     }
@@ -97,19 +108,34 @@ public:
 
         rt.generate(host_window.width, host_window.height, image->data);
 
-        auto view = registry.view<Snow::TransformComponent>();
-        for (auto e : view) {
-            auto &transform = view.get<Snow::TransformComponent>(e);
-            transform.position = glm::vec2(0, 0);
-
-            float aspect_ratio =
-                    (float) host_window.width / (float) host_window.height;
-            if (aspect_ratio == 0)
+        {
+            auto &transform = registry.get<Snow::TransformComponent>(e);
+            float aspect_ratio;
+            if (host_window.height == 0) {
                 aspect_ratio = (float) Snow::Screen::width /
                                (float) Snow::Screen::height;
-            transform.scale = glm::vec2(
-                    aspect_ratio * (float) Snow::Screen::height,
-                    Snow::Screen::height);
+            }
+
+            aspect_ratio =
+                    (float) host_window.width / (float) host_window.height;
+
+            /**
+             * check if we have to scale on x/y depending
+             * on which dimension is longer
+             *
+             * TODO: clamp this to some value
+             */
+            if (host_window.width > Snow::Screen::width) {
+                transform.scale.x = Snow::Screen::width * 2;
+                transform.scale.y = transform.scale.x / aspect_ratio;
+                transform.position.x = (float) -Snow::Screen::width;
+                transform.position.y = -transform.scale.y / 2;
+            } else {
+                transform.scale.y = Snow::Screen::height * 2;
+                transform.scale.x = aspect_ratio * transform.scale.y;
+                transform.position.y = (float) -Snow::Screen::height;
+                transform.position.x = -transform.scale.x / 2;
+            }
         }
 
         rt.update(image->data);
