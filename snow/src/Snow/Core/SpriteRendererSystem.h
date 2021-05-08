@@ -29,8 +29,9 @@ namespace Snow {
             shader.set_int("image", 0);
 
             //  temporary
-            auto view = registry.view<CameraComponent>();
+            auto view = registry.view<CameraComponent, TransformComponent>();
             const auto camera = view.get<CameraComponent>(view.front());
+            auto &transform = view.get<TransformComponent>(view.front());
 
             //  FIXME: we shouldn't set the matrices here...
             shader.set_mat4("projection", camera.projection);
@@ -42,6 +43,15 @@ namespace Snow {
             for (auto e : view) {
                 auto &transform = view.get<TransformComponent>(e);
                 auto &sprite = view.get<SpriteComponent>(e);
+
+                //  temporary
+                auto _view = registry.view<CameraComponent>();
+                const auto camera = _view.get<CameraComponent>(_view.front());
+
+                //  FIXME: we shouldn't set the matrices here...
+                shader.set_mat4("projection", camera.projection);
+                shader.set_mat4("view", camera.view);
+
                 renderer.draw(sprite, transform, shader);
             }
         }
