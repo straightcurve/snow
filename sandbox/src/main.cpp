@@ -15,9 +15,8 @@ public:
     _XImage *image;
     Display *display;
     Pixmap pixmap;
-    XID xid = 0x1600006;    //  xwininfo
-    int width;
-    int height;
+    XID xid = 0x4400006;    //  xwininfo
+    XWindowData host_window;
 
     ~Sandbox() {
         XFreePixmap(display, pixmap);
@@ -25,15 +24,13 @@ public:
     }
 
     Sandbox() {
-        Snow::GUI::add_window(new ExampleWindow());
-
         display = XOpenDisplay(nullptr);
 
         // Check if Composite extension is enabled
         int event_base_return;
         int error_base_return;
         if (!XCompositeQueryExtension(display, &event_base_return,
-                                     &error_base_return))
+                                      &error_base_return))
             SNOW_CORE_WARN("Composite not available!\n");
 
         // Requests the X server to direct the hierarchy starting at window to off-screen storage
@@ -45,6 +42,25 @@ public:
         // pixmaps ref count to prevent it from being deallocated.
         pixmap = XCompositeNameWindowPixmap(display, xid);
 
+        get_host_window_attributes(host_window);
+
+        image = XGetImage(display, xid, 0, 0, host_window.width,
+                          host_window.height, 0xffffffff,
+                          ZPixmap);
+        rt.generate(host_window.width, host_window.height, image->data);
+
+        auto e = registry.create();
+        auto &transform = registry.emplace<Snow::TransformComponent>(e);
+        transform.position = glm::vec2(0, 0);
+        transform.scale = glm::vec2(Snow::Screen::width, Snow::Screen::height);
+
+        auto &sprite = registry.emplace<Snow::SpriteComponent>(e);
+        sprite.texture = rt.id;
+
+        Snow::GUI::add_window(new ExampleWindow(&host_window));
+    }
+
+    void get_host_window_attributes(XWindowData &data) const {
         // Get window attributes
         XWindowAttributes attr;
         Status s = XGetWindowAttributes(display, xid, &attr);
@@ -53,36 +69,49 @@ public:
             return;
         }
 
-        width = attr.width;
-        height = attr.height;
-
-        image = XGetImage(display, xid, 0, 0, width, height, 0xffffffff,
-                          ZPixmap);
-        rt.generate(width, height, image->data);
-
-        auto e = registry.create();
-        auto &transform = registry.emplace<Snow::TransformComponent>(e);
-        transform.position = glm::vec2(0, 0);
-        transform.scale = glm::vec2(1280, 720);
-
-        auto &sprite = registry.emplace<Snow::SpriteComponent>(e);
-        sprite.texture = rt.id;
-
-        shader = Snow::Resources::load_shader(
-                "assets/shaders/base/vertex.shader",
-                "assets/shaders/x11/fragment.shader",
-                nullptr,
-                "base"
-        );
+        data.width = attr.width;
+        data.height = attr.height;
     }
 
     void update() override {
-        image = XGetImage(display, xid, 0, 0, width, height, 0xffffffff,
-                          ZPixmap);
+        get_host_window_attributes(host_window);
+
+        try {
+            image = XGetImage(display, xid, 0, 0, host_window.width,
+                              host_window.height, 0xffffffff,
+                              ZPixmap);
+        } catch (std::exception &ex) {
+            SNOW_ERROR(
+                    "Failed getting image from host, display size {0}x{1}\n{2}",
+                    host_window.width, host_window.height, ex.what());
+            return;
+        } catch (const char *ex) {
+            SNOW_ERROR(
+                    "Failed getting image from host, display size {0}x{1}\n{2}",
+                    host_window.width, host_window.height, *ex);
+            return;
+        }
+
         if (image == nullptr)
             return;
 
-        shader.use();
+        rt.generate(host_window.width, host_window.height, image->data);
+
+        auto view = registry.view<Snow::TransformComponent>();
+        for (auto e : view) {
+            auto &transform = view.get<Snow::TransformComponent>(e);
+            transform.position = glm::vec2(0, 0);
+
+            float aspect_ratio =
+                    (float) host_window.width / (float) host_window.height;
+            if (aspect_ratio == 0)
+                aspect_ratio = (float) Snow::Screen::width /
+                               (float) Snow::Screen::height;
+            transform.scale = glm::vec2(
+                    aspect_ratio * (float) Snow::Screen::height,
+                    Snow::Screen::height);
+        }
+
         rt.update(image->data);
         image->f.destroy_image(image);
     }

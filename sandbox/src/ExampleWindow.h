@@ -5,14 +5,17 @@
 #pragma once
 
 #include <Snow.h>
+#include "XWindowData.h"
 
 class ExampleWindow : public Snow::GUIWindow {
 private:
     int corner = 0;
+    XWindowData *data;
 public:
-    ExampleWindow() {
+    ExampleWindow(XWindowData *_data) {
         name = "Statistics";
         window_flags = ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav;
+        data = _data;
     }
 
     void pre_begin() override {
@@ -46,6 +49,11 @@ public:
             ImGui::Text("Mouse Position: (%.1f,%.1f)", io.MousePos.x, io.MousePos.y);
         else
             ImGui::Text("Mouse Position: <invalid>");
+
+        if (data != nullptr)
+            ImGui::Text("Host Display: %dx%d", data->width, data->height);
+
+        ImGui::Text("Display: %dx%d", Snow::Screen::width, Snow::Screen::height);
 
         if (ImGui::BeginPopupContextWindow())
         {
