@@ -19,6 +19,7 @@ namespace Snow::Impl {
         bool m_vsync = true;
 
         void update_viewport_size();
+        static void s_update_viewport_size(int width, int height);
     public:
         Window();
 

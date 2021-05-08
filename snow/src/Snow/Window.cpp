@@ -34,6 +34,8 @@ namespace Snow::Impl {
             Screen::width = width;
             Screen::height = height;
 
+            s_update_viewport_size(width, height);
+
             Callbacks &callbacks = *(Callbacks *) glfwGetWindowUserPointer(window);
             if (callbacks.resized != nullptr)
                 callbacks.resized(width, height);
@@ -88,5 +90,16 @@ namespace Snow::Impl {
         int display_w, display_h;
         glfwGetFramebufferSize(m_window, &display_w, &display_h);
         glViewport(0, 0, display_w, display_h);
+    }
+
+    /**
+     * should only run when the window is
+     * initialized and/or the window is resized
+     */
+    void Window::s_update_viewport_size(int width, int height) {
+        SNOW_CORE_ASSERT(s_glfw_initialized, "Tried to update viewport size before GLFW has been initialized!");
+        SNOW_CORE_ASSERT(s_glad_initialized, "Tried to update viewport size before graphics API has been initialized!");
+
+        glViewport(0, 0, width, height);
     }
 }
