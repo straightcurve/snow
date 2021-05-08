@@ -8,6 +8,7 @@
 #include <ext/matrix_clip_space.hpp>
 #include <ext/matrix_transform.hpp>
 #include <Snow/Core/CameraComponent.h>
+#include <Snow/Core/Screen.h>
 
 namespace Snow {
     class CameraSystem {
@@ -29,6 +30,16 @@ namespace Snow {
             for (auto e : view) {
                 auto &camera = registry.get<CameraComponent>(e);
                 auto &transform = registry.get<TransformComponent>(e);
+                float scalefac = 1.0f;
+                camera.projection = glm::ortho(
+                        (float)-Screen::width / scalefac,
+                        (float)Screen::width / scalefac,
+                        (float)Screen::height / scalefac,
+                        (float)-Screen::height / scalefac,
+                        -1.0f,
+                        1.0f
+                );
+
                 recalculate_view_matrix(camera, transform);
             }
         }
