@@ -20,7 +20,7 @@ namespace Snow {
         SpriteRendererSystem(entt::registry &registry) {
             shader = Resources::load_shader(
                     "assets/shaders/base/vertex.shader",
-                    "assets/shaders/base/fragment.shader",
+                    "assets/shaders/x11/fragment.glsl",
                     nullptr,
                     "base"
             );
