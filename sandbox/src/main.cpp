@@ -1,6 +1,7 @@
 #include <iostream>
 #include <Snow.h>
 #include "ExampleWindow.h"
+#include "Input/Keyboard.h"
 
 #include <X11/Xlib.h>
 #include <X11/X.h>
@@ -15,10 +16,11 @@ public:
     _XImage *image;
     Display *display;
     Pixmap pixmap;
-    XID xid = 0x4800006;    //  xwininfo
+    XID xid = 0x7000006;    //  xwininfo
     XWindowData host_window;
 
     entt::entity e, e2;
+    Input::Keyboard kb;
 
     ~Sandbox() {
         XFreePixmap(display, pixmap);
